@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query History - Court Data Fetcher</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .queries-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .query-card {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            margin: 15px 0;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .query-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .case-info {
+            font-weight: bold;
+            color: #007bff;
+            font-size: 1.1em;
+        }
+        .timestamp {
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+        .query-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .meta-item {
+            background: white;
+            padding: 10px;
+            border-radius: 4px;
+            border-left: 4px solid #007bff;
+        }
+        .meta-label {
+            font-weight: bold;
+            color: #495057;
+            font-size: 0.9em;
+        }
+        .meta-value {
+            color: #6c757d;
+            margin-top: 5px;
+        }
+        .no-queries {
+            text-align: center;
+            color: #6c757d;
+            margin: 50px 0;
+        }
+        .back-button {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .back-button:hover {
+            background: #0056b3;
+            text-decoration: none;
+            color: white;
+        }
+        .stats {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="queries-container">
+        <h1>Query History</h1>
+        
+        <a href="{{ url_for('index') }}" class="back-button">← Back to Search</a>
+        
+        {% if queries %}
+            <div class="stats">
+                <strong>Total Queries: {{ queries|length }}</strong>
+            </div>
+            
+            {% for query in queries %}
+            <div class="query-card">
+                <div class="query-header">
+                    <div class="case-info">
+                        {{ query.case_type }} {{ query.case_number }}/{{ query.filing_year }}
+                    </div>
+                    <div class="timestamp">
+                        {{ query.timestamp.strftime('%Y-%m-%d %H:%M:%S') if query.timestamp else 'No timestamp' }}
+                    </div>
+                </div>
+                
+                <div class="query-meta">
+                    <div class="meta-item">
+                        <div class="meta-label">Case Type</div>
+                        <div class="meta-value">{{ query.case_type }}</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Case Number</div>
+                        <div class="meta-value">{{ query.case_number }}</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Filing Year</div>
+                        <div class="meta-value">{{ query.filing_year }}</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Document ID</div>
+                        <div class="meta-value">{{ query._id }}</div>
+                    </div>
+                </div>
+                
+                {% if query.raw_response %}
+                <details style="margin-top: 15px;">
+                    <summary style="cursor: pointer; font-weight: bold; color: #007bff;">
+                        View Raw Response ({{ (query.raw_response|length / 1024)|round(1) }} KB)
+                    </summary>
+                    <div style="background: #f1f3f4; padding: 10px; margin-top: 10px; border-radius: 4px; max-height: 300px; overflow-y: auto;">
+                        <pre style="white-space: pre-wrap; font-size: 0.8em;">{{ query.raw_response[:1000] }}{% if query.raw_response|length > 1000 %}...{% endif %}</pre>
+                    </div>
+                </details>
+                {% endif %}
+            </div>
+            {% endfor %}
+            
+        {% else %}
+            <div class="no-queries">
+                <h3>No queries found</h3>
+                <p>No search queries have been logged yet. <a href="{{ url_for('index') }}">Make your first search</a> to see results here.</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

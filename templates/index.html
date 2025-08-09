@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delhi High Court Case Status Checker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .form-container {
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+
+        select, input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            background-color: #fff;
+        }
+
+        select:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background-color: #3498db;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .footer {
+            background-color: #ecf0f1;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #e1e8ed;
+        }
+
+        .footer a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .note {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .note p {
+            margin: 0;
+            color: #6c757d;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Delhi High Court</h1>
+            <p>Case Status Checker</p>
+        </div>
+
+        <div class="form-container">
+            <form method="POST">
+                <div class="form-group">
+                    <label for="case_type">Case Type</label>
+                    <select name="case_type" id="case_type" required>
+                        <option value="">Select Case Type</option>
+                        <option value="W.P.(C)">W.P.(C) - Writ Petition (Civil)</option>
+                        <option value="CRL.M.C.">CRL.M.C. - Criminal Misc.</option>
+                        <option value="C.M.">C.M. - Civil Misc.</option>
+                        <option value="FAO">FAO - First Appeal from Order</option>
+                        <option value="CRL.A.">CRL.A. - Criminal Appeal</option>
+                        <option value="R.S.A.">R.S.A. - Regular Second Appeal</option>
+                        <option value="C.S.">C.S. - Civil Suit</option>
+                        <option value="ARB.P.">ARB.P. - Arbitration Petition</option>
+                        <option value="O.M.P.">O.M.P. - Original Misc. Petition</option>
+                        <option value="RFA">RFA - Regular First Appeal</option>
+                        <option value="ITA">ITA - Income Tax Appeal</option>
+                        <option value="LPA">LPA - Letters Patent Appeal</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="case_number">Case Number</label>
+                    <input type="text" name="case_number" id="case_number" placeholder="Enter case number (e.g., 1234)" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="filing_year">Filing Year</label>
+                    <select name="filing_year" id="filing_year" required>
+                        <option value="">Select Year</option>
+                        <option value="2025">2025</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                        <option value="2019">2019</option>
+                        <option value="2018">2018</option>
+                        <option value="2017">2017</option>
+                        <option value="2016">2016</option>
+                        <option value="2015">2015</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="submit-btn">Search Case Details</button>
+            </form>
+
+            <div class="note">
+                <p><strong>Note:</strong> This tool searches the Delhi High Court database for case status and related documents. Please ensure you enter the correct case details.</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <a href="/queries">View Search History</a>
+        </div>
+    </div>
+</body>
+</html>
