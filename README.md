@@ -86,6 +86,7 @@ court_data_fetcher/
 ```
 
 🔒 CAPTCHA Strategy
+
 The Delhi High Court case status page uses a numeric text CAPTCHA.
 Our script automatically handles this by:
 Locating the <span> element with the numeric CAPTCHA using:
